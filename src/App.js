@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { CartContext } from "./context/CartContext";
+import Home from "./containers/Home/Home";
+import Cart from "./components/Cart/Cart";
+import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
+import ItemDetailContainer from "./containers/ItemDetailContainer/ItemDetailContainer";
+import "bootstrap/dist/css/bootstrap.min.css";
+import NavBar from "./components/NavBar/NavBar";
+import { useState } from "react";
 
 function App() {
+  const [cart, setCart] = useState('asd')
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CartContext.Provider value={{cart}}>
+      <BrowserRouter>
+        <NavBar />
+        <Switch>
+          <Route exact path="/">
+            <Home mensaje={"Bienvenido"} />
+          </Route>
+          <Route exact path="/detalle/:parametro">
+            <ItemDetailContainer />
+          </Route>
+          <Route exact path="/cart">
+            <Cart />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </CartContext.Provider>
   );
 }
 
