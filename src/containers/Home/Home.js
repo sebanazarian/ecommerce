@@ -20,7 +20,7 @@ const Home = ({ mensaje }) => {
     <div>
       <div className="contenedor">
         <h1 className="titulo">{mensaje}!</h1>
-        <h1>{valorQueVieneDeCartContext.cart}</h1>
+        <h1>{valorQueVieneDeCartContext.name}</h1>
       </div>
      
       <ItemList products={products}/>

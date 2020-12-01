@@ -1,18 +1,20 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { CartContext } from "./context/CartContext";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import { AppProvider, CartContext } from "./context/CartContext";
+import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
+
 import Home from "./containers/Home/Home";
 import Cart from "./components/Cart/Cart";
-import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
 import ItemDetailContainer from "./containers/ItemDetailContainer/ItemDetailContainer";
-import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "./components/NavBar/NavBar";
-import { useState } from "react";
+
 
 function App() {
-  const [cart, setCart] = useState('asd')
+ 
   return (
-    <CartContext.Provider value={{cart}}>
+    <AppProvider>
       <BrowserRouter>
         <NavBar />
         <Switch>
@@ -27,7 +29,7 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
-    </CartContext.Provider>
+    </AppProvider>
   );
 }
 
