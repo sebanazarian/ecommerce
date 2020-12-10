@@ -2,7 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { AppProvider, CartContext } from "./context/CartContext";
+import { AppProvider } from "./context/CartContext";
 import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
 
 import Home from "./containers/Home/Home";
@@ -23,6 +23,9 @@ function App() {
           </Route>
           <Route exact path="/detalle/:parametro">
             <ItemDetailContainer />
+          </Route>
+          <Route exact path="/categories/:parametro">
+            <Home mensaje={"Bienvenido"}  />
           </Route>
           <Route exact path="/cart">
             <Cart />
