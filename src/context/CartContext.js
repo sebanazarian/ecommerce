@@ -1,18 +1,32 @@
 import React,  { createContext,useContext ,useState } from 'react'
+import { getFirestore } from "../firebase";
+
 
 // const AppContext = createContext()
 export const CartContext = React.createContext()
 
 export const AppProvider = ({children}) =>{
   const [cart, setCart] = useState([])
+  const [orderId, setOrderId] = useState()
 
   const handleCart = (newValue) =>{
     setCart((prevCart)=>[...prevCart,newValue])
   }
 
+
+  const addProductSales = (venta) => {
+    const db = getFirestore();
+    db.collection("Sales").add(venta).then(({id}) =>{
+      setOrderId(id)
+    })
+    console.log(orderId)
+  };
+
+
+
+  //Add items to Cart
   const addProductToCart = (product, quantity) => {
     const productInCart = cart.find((p) => p.product.id === product.id)
-    console.log(productInCart)
     if (productInCart === undefined) {
       setCart([...cart, { product, quantity }])
     } else {
@@ -21,12 +35,8 @@ export const AppProvider = ({children}) =>{
     }
   }
   
-  
+  //Count Products
   const productsCount = () =>{
-    // var sum = 0;
-    // cart.forEach(element => sum += element.quantity);
-    // return sum
-    //otra manera de hacer foreach,map, for()
     return cart.reduce((acc,p) => (
       acc += p.quantity
     ),0)
@@ -34,7 +44,7 @@ export const AppProvider = ({children}) =>{
 
   
 
-  //Eliminar
+  //Delete Product from Cart
   const deleteProductToCart = (id) =>{
     cart.splice(
       cart.findIndex(p=> p.id === id),1
@@ -42,7 +52,7 @@ export const AppProvider = ({children}) =>{
     setCart([...cart])
   }
 
-  //Importe Total
+  //Total $$
   const getGrandTotal = () =>{
     return cart.reduce((acc,p) => (
       acc += (p.product.price * p.quantity)
@@ -52,7 +62,7 @@ export const AppProvider = ({children}) =>{
   
   
  
-  return( <CartContext.Provider value={{cart, handleCart,addProductToCart,productsCount,deleteProductToCart,getGrandTotal}}>
+  return( <CartContext.Provider value={{cart, handleCart,addProductToCart,productsCount,deleteProductToCart,getGrandTotal,addProductSales,orderId}}>
     {children}
   </CartContext.Provider>
   )

@@ -25,8 +25,6 @@ const Home = ({ mensaje }) => {
       if (response.size === 0) reject("no hay registros");
       const aux = response.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       setProducts(aux);
-      console.log(aux);
-
     });
   };
 
