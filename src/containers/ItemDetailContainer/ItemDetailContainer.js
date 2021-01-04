@@ -16,12 +16,12 @@ const ItemDetailContainer = () => {
     const itemCollection = db.collection("productos");
     const item = itemCollection.doc(parametro);
 
-    item.get().then((doc) => {
+    item.get()
+    .then((doc) => {
       if (!doc.exists) {
-        console.log("El item no existe");
+        setLoading(false);
         return;
       }
-      console.log("item encontrado");
       setProduct({id:doc.id, ...doc.data()})
       setLoading(false);
     });
@@ -46,7 +46,7 @@ const ItemDetailContainer = () => {
 
   return (
     <div className="mt-4 w-100 d-flex justify-content-center">
-      {loading ? <h1>loading</h1> : <ItemDetail product={product} />}
+      {loading ? <h1>loading</h1> : product !== undefined? <ItemDetail product={product} /> : <h2>Producto inexistente</h2> }
     </div>
   );
 };

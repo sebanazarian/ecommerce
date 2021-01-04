@@ -3,20 +3,23 @@ import { Link } from "react-router-dom";
 
 const CategoryList = ({ categories }) => {
   return (
-    <div className="mt-4 w-100 d-flex justify-content-center">
-      {categories.length === 0 ? (
-        <div>Cargando ..</div>
-      ) : (
-        <div>
-          {categories.map((elemento, index) => (
-            <Link to={"/categories/" + elemento.id}>
-              <div key={index}>
-                <button>{elemento.name}</button>
-              </div>
-            </Link>
-          ))}
-        </div>
-      )}
+    <div className="small-container">
+      <h2 className="title">Categorias</h2>
+      <div className="row">
+        {categories.length === 0 ? (
+          <h2>Cargando ..</h2>
+        ) : (
+          <>
+            {categories.map((elemento, index) => (
+              <Link to={"/categories/" + elemento.id}>
+                <div className="col-4" key={index}>
+                  <button className="btnExplorar">{elemento.name}</button>
+                </div>
+              </Link>
+            ))}
+          </>
+        )}
+      </div>
     </div>
   );
 };

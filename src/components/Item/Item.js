@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 const Item = ({ products }) => {
   return (
-    <div className="mt-4 w-100 d-flex justify-content-center">
+    <div className="col-4">
       <Link to={"/detalle/" + products.id}>
-        <div>{products.name}</div>
-        <br></br>
-        <b> ${products.price}</b>
+        <h4>{products.name}</h4>
+        <img src={products.image} />
+        <p>${products.price}</p>
       </Link>
     </div>
   );

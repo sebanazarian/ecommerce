@@ -12,9 +12,6 @@ const Home = ({ mensaje }) => {
   const [categories, setCategories] = useState([]);
   const { parametro } = useParams();
 
-
-
-
   const getProductsFromFirebase = () => {
     // Referencia
     const db = getFirestore();
@@ -24,27 +21,29 @@ const Home = ({ mensaje }) => {
     filtrarPorStock.get().then((response, reject) => {
       if (response.size === 0) reject("no hay registros");
       const aux = response.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      setProducts(aux);
-    });
-  };
-
-  
-  const getProductsxCategory = (parametro) => {
-    // Referencia
-    console.log('parametro' + parametro)
-    const db = getFirestore();
-    const itemCollection = db.collection("productos");
-    // const filtrarPorStock = itemCollection.where("stock", ">", 1);
-
-    const filtrarPorCat = itemCollection.where("categoryId", "==",  parseInt(parametro));
-    // Pedimos los datos
-    filtrarPorCat.get().then((response,reject) => {
-      const aux = response.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       console.log(aux)
       setProducts(aux);
     });
   };
 
+  const getProductsByCategory = (parametro) => {
+    // Referencia
+    const db = getFirestore();
+    const itemCollection = db.collection("productos");
+    // const filtrarPorStock = itemCollection.where("stock", ">", 1);
+
+    const filtrarPorCat = itemCollection.where(
+      "categoryId",
+      "==",
+      parseInt(parametro)
+    );
+    // Pedimos los datos
+    filtrarPorCat.get().then((response, reject) => {
+      const aux = response.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      console.log(aux);
+      setProducts(aux);
+    });
+  };
 
   const getCategoriesFromFirebase = () => {
     // Referencia
@@ -54,43 +53,26 @@ const Home = ({ mensaje }) => {
     categoriesCollection.get().then((response, reject) => {
       if (response.size === 0) reject("no hay registros");
       // const aux = response.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      const aux = response.docs.map(element => {
+      const aux = response.docs.map((element) => {
         return element.data();
       });
       setCategories(aux);
-      console.log(aux);
     });
   };
 
-  const getProductsFromJson = () => {
-    // getProductsFromDatabase().then((response) => {
-    //   setProducts(response);
-    // });
-  };
-
   useEffect(() => {
-    console.log(parametro)
-    if (parametro === undefined || parametro == null || parametro == ''){
-      console.log('sin param')
+    if (parametro === undefined || parametro == null || parametro == "") {
       getProductsFromFirebase();
-    }else{
-      console.log('enrto')
-      getProductsxCategory(parametro)
+    } else {
+      getProductsByCategory(parametro);
     }
-    
     getCategoriesFromFirebase();
   }, [parametro]);
 
- 
-
   return (
     <div>
-      <div className="contenedor">
-        <h1 className="titulo">{mensaje}!</h1>
-      </div>
       <CategoryList categories={categories} />
       <ItemList products={products} />
-     
     </div>
   );
 };

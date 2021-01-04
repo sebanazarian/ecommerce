@@ -19,7 +19,7 @@ const ItemCounter = ({ initialValue, maxValue, minvalue, onAdd }) => {
 
   return (
     <div>
-      <h2>{contador}</h2>
+      <h2>Cantidad: {contador}</h2>
       <button className="btn btn-primary" onClick={sumarNumero}>
         +
       </button>

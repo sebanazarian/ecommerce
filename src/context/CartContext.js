@@ -46,8 +46,9 @@ export const AppProvider = ({children}) =>{
 
   //Delete Product from Cart
   const deleteProductToCart = (id) =>{
+    console.log(id)
     cart.splice(
-      cart.findIndex(p=> p.id === id),1
+      cart.find(p=> p.id === id),1
     )
     setCart([...cart])
   }
@@ -62,7 +63,7 @@ export const AppProvider = ({children}) =>{
   
   
  
-  return( <CartContext.Provider value={{cart, handleCart,addProductToCart,productsCount,deleteProductToCart,getGrandTotal,addProductSales,orderId}}>
+  return( <CartContext.Provider value={{cart, handleCart,addProductToCart,productsCount,deleteProductToCart,getGrandTotal,addProductSales,orderId, setOrderId}}>
     {children}
   </CartContext.Provider>
   )

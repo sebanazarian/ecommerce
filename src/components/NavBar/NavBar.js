@@ -1,42 +1,36 @@
 import React from "react";
 import CartIcon from "../Icono/CartIcon";
-import {Link, NavLink} from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import logoCompany from "../../assets/img/logo.png";
+import imgPrincipal from "../../assets/img/image1.png";
 
 const NavBar = () => {
   return (
-    
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      
-      <a class="navbar-brand" href="#">
-        E-Commerce
-      </a>
-      <CartIcon />
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <NavLink to={'/'} activeClassName="nav-link" >
-              Home <span class="sr-only">(current)</span>
-            </NavLink>
-          </li>
-          <li class="nav-item">
-            <NavLink to={'/'} activeClassName="nav-link" >
-              Nosotros
-            </NavLink>
-          </li>
-        </ul>
+    <div className="header">
+      <div className="container">
+        <div className="navbar">
+          <div className="logo">
+            <img src={logoCompany} alt="asd" width="125px" />
+          </div>
+          <nav>
+            <ul>
+              <li className="nav-item active">
+                <NavLink to={"/"} activeClassName="nav-link">
+                  Home <span className="sr-only">(current)</span>
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to={"/"} activeClassName="nav-link">
+                  Productos
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+          <CartIcon width="30px" height="30px" />
+        </div>
       </div>
-    </nav>
+    </div>
+   
   );
 };
 
