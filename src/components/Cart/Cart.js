@@ -55,7 +55,7 @@ const Cart = () => {
               <b> {elemento.quantity * elemento.product.price}</b>
               <br></br>
               <button
-                className="btnExplorar"
+                className="btnEliminar"
                 onClick={() => handleDel(elemento)}
               >
                 Eliminar
@@ -103,7 +103,7 @@ const Cart = () => {
           />
           <br></br>
           <button
-            className="btnExplorar"
+            className="btnVolver"
             disabled={!valid}
             onClick={() => {
               let venta = {
@@ -114,12 +114,12 @@ const Cart = () => {
               handleBuy(venta);
             }}
           >
-            Comprar
+            Realizar Compra
           </button>
           <h4>Total de Productos: {cartcxt.productsCount()}</h4>
           <h4>Precio Total: {cartcxt.getGrandTotal()}</h4>
           {cartcxt.orderId !== undefined && (
-            <h3>Su numero de Pedido es {cartcxt.orderId}</h3>
+            <h3>Su numero de Pedido es: <b>"{cartcxt.orderId}"</b> </h3>
           )}
         </div>
       </div>
